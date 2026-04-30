@@ -1,23 +1,89 @@
-# Big Five (OCEAN) Personality Skill
+# 大五人格 (OCEAN) 專業心理測評 Skill
 
-This repository contains a professional 50-item personality assessment skill for AI agents.
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Type](https://img.shields.io/badge/Skill-AI%20Agent-orange)
 
-## Installation
+這是一個為 AI Agent 設計的專業 50 題大五人格（Big Five）測評工具。基於國際人格項目池（IPIP-50）標準，能協助使用者透過與 AI 的深度對話，獲得精確的性格特質分析報告。
 
-You can install this skill into your agent environment using the Skills CLI:
+## 🧠 科學背景
+
+大五人格模型（OCEAN Model）是目前心理學界公認最全面且具科學實證的性格描述模型。本 Skill 採用的 **IPIP-50 (International Personality Item Pool)** 是該模型最廣泛應用的學術版本之一。
+
+測評涵蓋以下五大核心維度：
+
+-   **O**penness (開放性)：想像力、審美、情感豐富程度。
+-   **C**onscientiousness (盡責性)：自律、條理性、追求成就。
+-   **E**xtraversion (外向性)：熱情、社交、果斷。
+-   **A**greeableness (宜人性)：信任、利他、謙虛。
+-   **N**euroticism (神經質/情緒穩定性)：焦慮、敵意、壓抑。
+
+---
+
+## ✨ 核心功能
+
+-   ✅ **標準化測評**：完整 50 題 IPIP 標準題庫，確保結果的學術參考價值。
+-   ✅ **互動式引導**：AI 會逐題詢問並記錄答案，過程中提供適當的鼓勵與進度提示。
+-   ✅ **智能計分系統**：內建精確的正向與反向計分邏輯，自動計算五大維度原始分與百分比。
+-   ✅ **深度解析報告**：測試結束後自動生成包含「特質描述」與「生活建議」的個人性格畫像。
+-   ✅ **靈活輸入語義分析**：支持數字評分（1-5）或自然語言描述（如「非常同意」）。
+
+---
+
+## 🚀 快速開始
+
+### 1. 安裝 Skill
+
+在你的 Agent 環境中運行以下 CLI 命令：
 
 ```bash
 npx skills add aqws6361/big-five-personality-skill@big-five-assessment
 ```
 
-## How to use
+### 2. 開始測評
 
-Once installed, simply ask your agent:
-"I want to take a Big Five personality test."
+安裝完成後，只需對你的 Agent 說出以下任一指令即可觸發：
 
-The agent will guide you through 50 questions based on the IPIP-50 standard and provide a detailed report on:
-- **O**penness
-- **C**onscientiousness
-- **E**xtraversion
-- **A**greeableness
-- **N**euroticism (Emotional Stability)
+-   「我想做大五人格測試」
+-   「開始性格測評」
+-   「Take a Big Five test」
+
+---
+
+## 🛠️ 測評流程
+
+1.  **初始化**：Agent 會向你解釋測試規則與 1-5 分的評分標準。
+2.  **問答階段**：總共 50 題。Agent 會逐一顯示題目（如：「我是社交場合的靈魂人物」），請根據真實感受給分。
+3.  **進度反饋**：Agent 會在過程中提醒你目前的進度（例如：25/50）。
+4.  **生成報告**：完成所有題目後，系統會立即計算結果並呈現精美報告。
+
+---
+
+## 📊 報告範例
+
+測評結束後，你將獲得如下格式的分析：
+
+> ### 📝 你的大五人格報告
+>
+> -   **外向性 (E): 85%** - 你非常享受社交活動，能從與人相處中獲得能量。
+> -   **宜人性 (A): 72%** - 你具有同情心，願意信任他人並尋求和諧。
+> -   **盡責性 (C): 60%** - 你做事有條理，能在目標與靈活性之間取得平衡。
+> -   **情緒穩定性 (N): 45%** - 你對壓力較為敏感，建議適時放鬆心情。
+> -   **開放性 (O): 90%** - 你對新事物充滿好奇心，具備極強的想像力與創造力。
+>
+> **💡 建議**：你的高開放性顯示你適合從事創意或研發工作...
+
+---
+
+## 📝 注意事項
+
+-   本測評結果僅供參考，不具備醫學診斷效力。
+-   為了獲得最準確的結果，請在安靜的環境下根據你的直覺進行填寫。
+
+---
+
+## 🤝 貢獻與反饋
+
+如果你有任何建議或發現 Bug，歡迎提交 Issue 或 Pull Request。
+
+-   **Author**: aqws6361
+-   **Source**: [GitHub Repository](https://github.com/aqws6361/big-five-personality-skill)
