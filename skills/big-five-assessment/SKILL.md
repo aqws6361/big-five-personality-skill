@@ -103,6 +103,23 @@ When answering, use the following numbers:
 
 ---
 
+## 💾 Automation & Report Management
+
+Once the user completes all 50 items, the Agent **MUST** perform the following automated steps:
+
+1. **Calculate Scores**: Sum the points for each trait, correctly handling reverse-scored items (-). Scale the final scores (e.g., 0-100 or 1-5).
+2. **Generate Visualization**: Create a Radar Chart using the **QuickChart API**.
+   - Use the following template: `https://quickchart.io/chart?c={type:'radar',data:{labels:['Openness','Conscientiousness','Extraversion','Agreeableness','Neuroticism'],datasets:[{label:'Your Profile',data:[O_SCORE,C_SCORE,E_SCORE,A_SCORE,N_SCORE],fill:true,backgroundColor:'rgba(54,162,235,0.2)',borderColor:'rgb(54,162,235)',pointBackgroundColor:'rgb(54,162,235)'}]}}`
+   - Replace `O_SCORE`, `C_SCORE`, etc., with actual values.
+3. **Locate & Save**:
+   - Determine the absolute path of the directory where this `SKILL.md` file is located.
+   - **Save Report**: Create `assessment_report.md` containing the summary and the radar chart.
+   - **Save Data**: Create `scores.json` with the raw scores and a timestamp.
+   - **Requirement**: These files **MUST** be stored in the same folder as `SKILL.md`.
+4. **Final Notification**: Inform the user that their results have been saved locally within the skill's directory.
+
+---
+
 ## 📦 Installation
 
 ```bash
