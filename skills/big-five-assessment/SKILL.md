@@ -107,19 +107,24 @@ When answering, use the following numbers:
 
 Once the user completes all 50 items, the Agent **MUST** perform the following automated steps:
 
-1. **Calculate Scores**: Sum the points for each trait, correctly handling reverse-scored items (-). Scale the final scores to a 1-5 range.
-2. **Generate Visualization**: Create a Radar Chart using the **QuickChart API**.
-   - Use the following template: `https://quickchart.io/chart?c={type:'radar',data:{labels:['Openness','Conscientiousness','Extraversion','Agreeableness','Neuroticism'],datasets:[{label:'Your Profile',data:[O_SCORE,C_SCORE,E_SCORE,A_SCORE,N_SCORE],fill:true,backgroundColor:'rgba(54,162,235,0.2)',borderColor:'rgb(54,162,235)',pointBackgroundColor:'rgb(54,162,235)'}]},options:{scale:{ticks:{min:0,max:5,stepSize:1}}}}`
-   - Replace `O_SCORE`, `C_SCORE`, etc., with actual values.
-3. **Generate Bilingual Analysis & Advice**: 
-   - Create a detailed summary for each trait in **both Chinese and English**.
-   - Generate 2-3 personalized **Life & Career Advice** points based on the specific score profile, also in **both Chinese and English**.
-4. **Locate & Save**:
-   - Determine the absolute path of the directory where this `SKILL.md` file is located.
-   - **Save Report**: Create `assessment_report.md` containing the summary, radar chart, and the bilingual advice section. The entire report should use a bilingual layout.
-   - **Save Data**: Create `scores.json` with the raw scores and a timestamp.
-   - **Requirement**: These files **MUST** be stored in the same folder as `SKILL.md`.
-5. **Final Notification**: Inform the user that their bilingual results have been saved locally within the skill's directory.
+1. **Calculate Scores**: Sum points for each trait (handle reverse scoring `-`). Scale final scores to a 1-5 range.
+2. **Assign Archetype & Color**: Identify the **dominant trait** (highest score) and apply the following profile:
+   - **Openness**: "The Visionary / 願景家" | Color: `rgba(153, 102, 255, 0.2)` (Purple)
+   - **Conscientiousness**: "The Strategist / 策略家" | Color: `rgba(54, 162, 235, 0.2)` (Blue)
+   - **Extraversion**: "The Catalyst /催化劑" | Color: `rgba(255, 159, 64, 0.2)` (Orange)
+   - **Agreeableness**: "The Harmonizer / 調和者" | Color: `rgba(75, 192, 192, 0.2)` (Green)
+   - **Neuroticism**: "The Empath / 共情者" | Color: `rgba(255, 99, 132, 0.2)` (Red)
+3. **Generate Visualization**: Create a Radar Chart via **QuickChart API**.
+   - **Template**: `https://quickchart.io/chart?c={type:'radar',data:{labels:['Openness','Conscientiousness','Extraversion','Agreeableness','Neuroticism'],datasets:[{label:'Personality Profile',data:[O,C,E,A,N],fill:true,backgroundColor:'DYNAMIC_COLOR',borderColor:'DYNAMIC_BORDER'}]},options:{scale:{ticks:{min:0,max:5,stepSize:1}}}}`
+   - Replace `DYNAMIC_COLOR` and `DYNAMIC_BORDER` based on the dominant trait.
+4. **Generate Bilingual Analysis & Lifestyle Match**:
+   - **Archetype Title**: Display the assigned title prominently.
+   - **Trait Summary**: Detailed summary for each dimension in **both Chinese and English**.
+   - **Lifestyle Match**: Suggest 2-3 activities (e.g., high-O: complex puzzles; high-C: structured calisthenics; high-E: social music production) in **both languages**.
+5. **Locate & Save**:
+   - Save the bilingual report as `assessment_report.md` and raw data as `scores.json` with a timestamp.
+   - **Requirement**: These files **MUST** be stored in the same directory as this `SKILL.md`.
+6. **Final Notification**: Inform the user that their archived profile and dynamic radar chart are ready.
 
 ---
 
