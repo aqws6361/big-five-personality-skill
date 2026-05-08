@@ -109,7 +109,7 @@ Once the user completes all 50 items, the Agent **MUST** perform the following a
 
 1. **Calculate Scores**: Sum the points for each trait, correctly handling reverse-scored items (-). Scale the final scores (e.g., 0-100 or 1-5).
 2. **Generate Visualization**: Create a Radar Chart using the **QuickChart API**.
-   - Use the following template: `https://quickchart.io/chart?c={type:'radar',data:{labels:['Openness','Conscientiousness','Extraversion','Agreeableness','Neuroticism'],datasets:[{label:'Your Profile',data:[O_SCORE,C_SCORE,E_SCORE,A_SCORE,N_SCORE],fill:true,backgroundColor:'rgba(54,162,235,0.2)',borderColor:'rgb(54,162,235)',pointBackgroundColor:'rgb(54,162,235)'}]}}`
+   - Use the following template: `https://quickchart.io/chart?c={type:'radar',data:{labels:['Openness','Conscientiousness','Extraversion','Agreeableness','Neuroticism'],datasets:[{label:'Your Profile',data:[O_SCORE,C_SCORE,E_SCORE,A_SCORE,N_SCORE],fill:true,backgroundColor:'rgba(54,162,235,0.2)',borderColor:'rgb(54,162,235)',pointBackgroundColor:'rgb(54,162,235)'}]},options:{scale:{ticks:{min:0,max:5,stepSize:1}}}}`
    - Replace `O_SCORE`, `C_SCORE`, etc., with actual values.
 3. **Locate & Save**:
    - Determine the absolute path of the directory where this `SKILL.md` file is located.
