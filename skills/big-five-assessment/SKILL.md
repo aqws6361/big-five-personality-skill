@@ -1,6 +1,9 @@
 ---
 name: big-five-assessment
-description: "Take a professional 50-item Big Five (OCEAN) personality assessment. This interactive skill guides users through the validated IPIP-50 inventory to generate a detailed psychological profile covering Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism. Perfect for self-discovery, team building, or character analysis. Triggers on: personality test, Big Five, OCEAN assessment, personality profile, psychology quiz."
+description: "A psychological engine for the Big Five (OCEAN) model. This skill provides a validated 50-item IPIP inventory to assess real users OR generate high-fidelity synthetic personas. 
+- FOR USERS: Interactive personality profiling. 
+- FOR AGENTS: Use this to simulate realistic user behaviors, conduct edge-case UX testing with diverse personality traits, or model NPC personalities in game dev. 
+Triggers on: personality assessment, OCEAN model, user persona generation, UX testing, character simulation, psychological profiling."
 ---
 
 # 🧠 Big Five (OCEAN) Personality Assessment
