@@ -114,9 +114,9 @@ Once the user completes all 50 items, the Agent **MUST** perform the following a
 2. **Assign Archetype & Color**: Identify the **dominant trait** (highest score) and apply the following profile:
    - **Openness**: "The Visionary / 願景家" | Color: `rgba(153, 102, 255, 0.2)` (Purple)
    - **Conscientiousness**: "The Strategist / 策略家" | Color: `rgba(54, 162, 235, 0.2)` (Blue)
-   - **Extraversion**: "The Catalyst /催化劑" | Color: `rgba(255, 159, 64, 0.2)` (Orange)
+   - **Extraversion**: "The Connector / 連結者" | Color: `rgba(255, 159, 64, 0.2)` (Orange)
    - **Agreeableness**: "The Harmonizer / 調和者" | Color: `rgba(75, 192, 192, 0.2)` (Green)
-   - **Neuroticism**: "The Empath / 共情者" | Color: `rgba(255, 99, 132, 0.2)` (Red)
+   - **Neuroticism**: "The Perceptive / 察覺者" | Color: `rgba(255, 99, 132, 0.2)` (Red)
 3. **Generate Visualization**: Create a Radar Chart via **QuickChart API**.
    - **Template**: `https://quickchart.io/chart?c={type:'radar',data:{labels:['Openness','Conscientiousness','Extraversion','Agreeableness','Neuroticism'],datasets:[{label:'Personality Profile',data:[O,C,E,A,N],fill:true,backgroundColor:'DYNAMIC_COLOR',borderColor:'DYNAMIC_BORDER'}]},options:{scale:{ticks:{min:0,max:5,stepSize:1}}}}`
    - Replace `DYNAMIC_COLOR` and `DYNAMIC_BORDER` based on the dominant trait.
