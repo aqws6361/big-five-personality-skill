@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大五人格測評 | OCEAN Personality Assessment</title>
+    <!-- Google Fonts: Outfit for titles, Inter for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Style -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Dependencies via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body>
+    <!-- Background dynamic glow shapes -->
+    <div class="glow-bg">
+        <div class="shape shape-1" id="glow-shape-1"></div>
+        <div class="shape shape-2" id="glow-shape-2"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="logo-icon"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+                <span class="logo-text">OCEAN</span>
+            </div>
+            <div class="header-tag">大五人格專業心理測評</div>
+        </header>
+
+        <!-- SCREEN 1: LANDING / MODE SELECT -->
+        <main class="screen active" id="screen-landing">
+            <div class="welcome-box">
+                <h1 class="welcome-title">解鎖你的內在人格畫像</h1>
+                <p class="welcome-subtitle">基於國際人格項目池 (IPIP-50) 學術標準，通過 AI 驅動的數據模型，探索你最真實的心理維度特徵。</p>
+                
+                <!-- Traits Quick Glance -->
+                <div class="traits-glance">
+                    <div class="trait-tag trait-o" title="開放性：好奇心、創造力與審美體驗">開放性 O</div>
+                    <div class="trait-tag trait-c" title="盡責性：條理、自律與目標達成">盡責性 C</div>
+                    <div class="trait-tag trait-e" title="外向性：社交熱情、果斷與活力度">外向性 E</div>
+                    <div class="trait-tag trait-a" title="宜人性：信任、同理心與利他傾向">宜人性 A</div>
+                    <div class="trait-tag trait-n" title="情緒穩定性：抗壓、冷靜與彈性適應力">穩定性 S</div>
+                </div>
+
+                <!-- Mode Select Grid -->
+                <div class="mode-grid">
+                    <!-- Lite Mode -->
+                    <button class="mode-card" id="btn-mode-lite">
+                        <div class="mode-icon-wrapper purple-glow">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        </div>
+                        <h3 class="mode-name">極速測評版 / Lite</h3>
+                        <p class="mode-desc">精選 15 題代表性測驗，僅需 2-3 分鐘。適合快速探索性格底色或 Agent UX 快速跑測。</p>
+                        <span class="mode-badge">⚡ 推薦首測</span>
+                    </button>
+
+                    <!-- Full Mode -->
+                    <button class="mode-card" id="btn-mode-full">
+                        <div class="mode-icon-wrapper blue-glow">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+                        </div>
+                        <h3 class="mode-name">學術標準版 / Full</h3>
+                        <p class="mode-desc">完整 50 題 IPIP 標準題庫，需約 8-10 分鐘。提供最細膩的心理學分析與五大維度精準原始百分比。</p>
+                        <span class="mode-badge spec">📊 科學權威</span>
+                    </button>
+                </div>
+
+                <!-- History result indicator if exists -->
+                <div id="history-box" class="history-box hidden">
+                    <p>✨ 偵測到您先前測評過的主導人格：<strong id="history-archetype">策略家</strong></p>
+                    <button class="btn btn-secondary btn-sm" id="btn-view-history">直接查看歷史報告</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- SCREEN 2: QUESTIONNAIRE -->
+        <main class="screen" id="screen-test">
+            <!-- Test status bar -->
+            <div class="test-progress-container">
+                <div class="progress-info">
+                    <span class="progress-mode-tag" id="test-mode-label">極速測評版</span>
+                    <span class="progress-step-text" id="test-progress-text">題目 1 / 15</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" id="test-progress-bar"></div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="question-container">
+                <div class="question-card" id="active-question-card">
+                    <div class="question-quote">“</div>
+                    <h2 class="question-text" id="question-text">載入中... Loading...</h2>
+                </div>
+
+                <!-- Likert Options -->
+                <div class="likert-container">
+                    <div class="likert-legend">
+                        <span>非常不符合<br>Very Inaccurate</span>
+                        <span>非常符合<br>Very Accurate</span>
+                    </div>
+                    <div class="likert-options">
+                        <button class="likert-btn" data-value="1">
+                            <span class="likert-num">1</span>
+                            <span class="likert-label">非常不符合</span>
+                        </button>
+                        <button class="likert-btn" data-value="2">
+                            <span class="likert-num">2</span>
+                            <span class="likert-label">有些不符合</span>
+                        </button>
+                        <button class="likert-btn" data-value="3">
+                            <span class="likert-num">3</span>
+                            <span class="likert-label">普通</span>
+                        </button>
+                        <button class="likert-btn" data-value="4">
+                            <span class="likert-num">4</span>
+                            <span class="likert-label">有些符合</span>
+                        </button>
+                        <button class="likert-btn" data-value="5">
+                            <span class="likert-num">5</span>
+                            <span class="likert-label">非常符合</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Question Actions -->
+                <div class="question-actions">
+                    <button class="btn btn-text" id="btn-prev-question" disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                        返回上一題
+                    </button>
+                    <div class="actions-divider"></div>
+                    <button class="btn btn-text" id="btn-quit-test">
+                        放棄測驗
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- SCREEN 3: RESULTS DASHBOARD -->
+        <main class="screen" id="screen-results">
+            <div class="results-grid">
+                <!-- COLUMN LEFT: Tarot Sharing Card -->
+                <div class="card-export-wrapper">
+                    <!-- Export target container -->
+                    <div class="tarot-card" id="personality-share-card">
+                        <div class="tarot-inner-border">
+                            <!-- Card Header -->
+                            <div class="tarot-header">
+                                <span class="card-subtitle">OCEAN PERSONALITY CARD</span>
+                                <div class="card-dominant-badge" id="card-archetype-tag">主導人格特質</div>
+                            </div>
+
+                            <!-- Card Art / Image Area -->
+                            <div class="tarot-art-section">
+                                <div class="tarot-cosmic-glow"></div>
+                                <div class="tarot-avatar-box">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="tarot-symbol-svg" id="tarot-archetype-svg">
+                                        <!-- Will render dynamic SVG paths in JavaScript -->
+                                    </svg>
+                                </div>
+                                <h1 class="tarot-archetype-title" id="card-archetype-title">策略家</h1>
+                                <p class="tarot-archetype-subtitle" id="card-archetype-english">THE STRATEGIST</p>
+                            </div>
+
+                            <!-- Card Data Area -->
+                            <div class="tarot-chart-section">
+                                <div class="chart-canvas-container">
+                                    <canvas id="radarChart"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- Card Trait Pills -->
+                            <div class="tarot-traits-list">
+                                <div class="tarot-trait-row">
+                                    <span class="t-name">O 開放性</span>
+                                    <div class="t-progress-bar"><div class="t-progress-fill o-fill" id="card-bar-o" style="width: 80%;"></div></div>
+                                    <span class="t-value" id="card-val-o">4.0</span>
+                                </div>
+                                <div class="tarot-trait-row">
+                                    <span class="t-name">C 盡責性</span>
+                                    <div class="t-progress-bar"><div class="t-progress-fill c-fill" id="card-bar-c" style="width: 84%;"></div></div>
+                                    <span class="t-value" id="card-val-c">4.2</span>
+                                </div>
+                                <div class="tarot-trait-row">
+                                    <span class="t-name">E 外向性</span>
+                                    <div class="t-progress-bar"><div class="t-progress-fill e-fill" id="card-bar-e" style="width: 56%;"></div></div>
+                                    <span class="t-value" id="card-val-e">2.8</span>
+                                </div>
+                                <div class="tarot-trait-row">
+                                    <span class="t-name">A 宜人性</span>
+                                    <div class="t-progress-bar"><div class="t-progress-fill a-fill" id="card-bar-a" style="width: 52%;"></div></div>
+                                    <span class="t-value" id="card-val-a">2.6</span>
+                                </div>
+                                <div class="tarot-trait-row">
+                                    <span class="t-name">S 穩定性</span>
+                                    <div class="t-progress-bar"><div class="t-progress-fill s-fill" id="card-bar-s" style="width: 76%;"></div></div>
+                                    <span class="t-value" id="card-val-s">3.8</span>
+                                </div>
+                            </div>
+
+                            <!-- Card Footer -->
+                            <div class="tarot-footer">
+                                <span class="footer-left">IPIP-50 PSYCHOMETRIC ENGINE</span>
+                                <span class="footer-right">skills.sh / aqws6361</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Actions -->
+                    <div class="card-buttons">
+                        <button class="btn btn-primary btn-full glowing-btn" id="btn-download-card">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            下載個性特質分享卡 (PNG)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- COLUMN RIGHT: Rich Reports -->
+                <div class="results-report-panel">
+                    <h2 class="report-main-title">深度人格分析報告</h2>
+                    
+                    <!-- Quick Summary Badge -->
+                    <div class="summary-card glass-panel">
+                        <div class="summary-desc-chinese" id="report-archetype-desc-cn">
+                            您展現出了卓越的組織能力與執行力。您非常有條理、重視細節，能夠在壓力下保持冷靜與專注。
+                        </div>
+                        <div class="summary-desc-english" id="report-archetype-desc-en">
+                            You have demonstrated exceptional organizational skills and execution. Highly organized and detail-oriented, you remain calm and focused under pressure.
+                        </div>
+                    </div>
+
+                    <!-- Bilingual Accordion Panels -->
+                    <div class="detailed-sections">
+                        <!-- SECTION 1: Trait Details -->
+                        <div class="section-card glass-panel">
+                            <h3 class="panel-section-title">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="panel-icon"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                                五大心理特質深度解析 / Trait Explanations
+                            </h3>
+                            <div class="traits-expl-list" id="report-traits-list">
+                                <!-- Generated Dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- SECTION 2: Career, Life and Lifestyle advice -->
+                        <div class="section-card glass-panel">
+                            <h3 class="panel-section-title">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="panel-icon"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                指南與生活匹配 / Recommendations & Lifestyle Matches
+                            </h3>
+                            
+                            <div class="advice-block">
+                                <div class="advice-item">
+                                    <div class="advice-header">
+                                        <div class="advice-icon-wrap violet-bg">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                                        </div>
+                                        <span class="advice-title-text">職業發展建議 / Career Strategy</span>
+                                    </div>
+                                    <p class="advice-content" id="advice-career-cn">適合需要高度嚴謹與邏輯思考的領域...</p>
+                                    <p class="advice-content en" id="advice-career-en">Suited for fields that demand logical thinking...</p>
+                                </div>
+
+                                <div class="advice-item">
+                                    <div class="advice-header">
+                                        <div class="advice-icon-wrap emerald-bg">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                                        </div>
+                                        <span class="advice-title-text">自我提升指引 / Life Guidance</span>
+                                    </div>
+                                    <p class="advice-content" id="advice-life-cn">建議多安排充電時間...</p>
+                                    <p class="advice-content en" id="advice-life-en">Ensure regular recharge periods to balance social fatigue...</p>
+                                </div>
+
+                                <div class="advice-item">
+                                    <div class="advice-header">
+                                        <div class="advice-icon-wrap amber-bg">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+                                        </div>
+                                        <span class="advice-title-text">生活方式匹配 / Lifestyle Match</span>
+                                    </div>
+                                    <p class="advice-content" id="advice-style-cn">建議嘗試結構化健身（Structured Calisthenics）...</p>
+                                    <p class="advice-content en" id="advice-style-en">Try structured fitness plans suitable for your discipline...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel Actions -->
+                    <div class="panel-buttons">
+                        <button class="btn btn-secondary" id="btn-retake-test">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                            重新測評
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Script Entry -->
+    <script src="app.js"></script>
+</body>
+</html>
