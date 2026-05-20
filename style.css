@@ -1090,3 +1090,105 @@ body {
         padding: 16px 12px;
     }
 }
+
+/* ==========================================================================
+   💻 Developer Skill Promos & Terminal Copy Widget
+   ========================================================================== */
+
+.dev-banner-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 20px 24px;
+    display: flex;
+    gap: 16px;
+    text-align: left;
+    margin-top: 36px;
+}
+
+.dev-banner-icon {
+    color: var(--theme-color);
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.dev-banner-title {
+    font-family: var(--font-titles);
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.dev-banner-text {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.terminal-widget {
+    background: #06070a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    gap: 16px;
+    width: 100%;
+    margin-top: 8px;
+    box-sizing: border-box;
+}
+
+.terminal-code {
+    font-family: monospace;
+    font-size: 12px;
+    color: #38bdf8;
+    white-space: nowrap;
+    overflow-x: auto;
+    flex-grow: 1;
+    scrollbar-width: none;
+}
+
+.terminal-code::-webkit-scrollbar {
+    display: none;
+}
+
+.btn-copy {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 6px 12px;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition-smooth);
+    white-space: nowrap;
+}
+
+.btn-copy:hover {
+    background: var(--theme-color);
+    color: #000000;
+    border-color: var(--theme-color);
+}
+
+.btn-copy:hover .copy-icon {
+    color: #000000;
+}
+
+.btn-copy.copied {
+    background: #10b981;
+    color: #ffffff;
+    border-color: #10b981;
+}
+
+.btn-copy.copied .copy-icon {
+    color: #ffffff;
+}
+

@@ -251,6 +251,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Results screen controls
     btnDownloadCard.addEventListener('click', downloadPersonalityCard);
     btnRetakeTest.addEventListener('click', restartAssessment);
+
+    // Setup CLI copy buttons
+    setupCopyButton('btn-copy-cli-1');
+    setupCopyButton('btn-copy-cli-2');
 });
 
 /* ==========================================================================
@@ -449,6 +453,12 @@ function displayReport(data) {
     // 2. Populate Tarot Card Elements
     document.getElementById('card-archetype-title').innerText = archetype.titleCN;
     document.getElementById('card-archetype-english').innerText = archetype.titleEN;
+    
+    // Update results developer promo widget
+    const promoArchetype = document.getElementById('promo-archetype-name');
+    if (promoArchetype) {
+        promoArchetype.innerText = archetype.titleCN;
+    }
     
     // Inject custom beautiful SVG inside Tarot Box
     const svgBox = document.getElementById('tarot-archetype-svg');
@@ -703,3 +713,33 @@ function getCustomTraitTextEN(trait, score) {
     }
     return '';
 }
+
+/* ==========================================================================
+   📋 Clipboard CLI Command Copy Helper
+   ========================================================================== */
+
+function setupCopyButton(btnId) {
+    const btn = document.getElementById(btnId);
+    if (!btn) return;
+    
+    btn.addEventListener('click', () => {
+        const commandText = 'npx skills add aqws6361/big-five-personality-skill@big-five-assessment';
+        navigator.clipboard.writeText(commandText).then(() => {
+            const textSpan = btn.querySelector('.copy-text');
+            const origHTML = btn.innerHTML;
+            
+            btn.classList.add('copied');
+            if (textSpan) {
+                textSpan.innerText = '已複製！';
+            }
+            
+            setTimeout(() => {
+                btn.classList.remove('copied');
+                btn.innerHTML = origHTML;
+            }, 1500);
+        }).catch(err => {
+            console.error('Failed to copy command text:', err);
+        });
+    });
+}
+
