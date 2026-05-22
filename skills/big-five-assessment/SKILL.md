@@ -1,9 +1,6 @@
 ---
 name: big-five-assessment
-description: "A psychological engine for the Big Five (OCEAN) model. This skill provides a validated 50-item IPIP inventory to assess real users OR generate high-fidelity synthetic personas. 
-- FOR USERS: Interactive personality profiling. 
-- FOR AGENTS: Use this to simulate realistic user behaviors, conduct edge-case UX testing with diverse personality traits, or model NPC personalities in game dev. 
-Triggers on: personality assessment, OCEAN model, user persona generation, UX testing, character simulation, psychological profiling."
+description: "A psychological engine for the Big Five (OCEAN) model. This skill provides a validated 50-item IPIP inventory to assess real users or generate high-fidelity synthetic personas. Supports interactive personality profiling for users, and simulating realistic behaviors for agents. Triggers on: personality assessment, OCEAN model, user persona generation, UX testing, character simulation, psychological profiling."
 ---
 
 # 🧠 Big Five (OCEAN) Personality Assessment
